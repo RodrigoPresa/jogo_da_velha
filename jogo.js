@@ -43,8 +43,7 @@ $(document).ready(function(){
     });
     //Recupera atraves do clique o id da posição clicada no jogo
     $('.jogada').click(function(){
-        var id_posicao_clicada = this.id;
-        jogada(id_posicao_clicada);
+        jogada(this.id);
     });
 
     function jogada(id){
@@ -103,10 +102,14 @@ $(document).ready(function(){
         if(pontos == 3){
             alert(jogador_1 + ' venceu o jogo!');
             $('.jogada').off();
+            pontuacao(pontos);
+            $('.div-btn-restart').show();
         }
         else if(pontos == -3){
             alert(jogador_2 + ' venceu o jogo!');
             $('.jogada').off();
+            pontuacao(pontos);
+            $('.div-btn-restart').show();
         }
     }
     //Função que verifica se deu empate
@@ -114,11 +117,45 @@ $(document).ready(function(){
         if(rodada == 10 && pontos != 3){
             alert('Deu velha!');
             $('.jogada').off();
+            $('.div-btn-restart').show();
         }
     }
-});
 
-//Refatorada a lógica de verificação na horizontal
-//Criada uma função para verificar se o jogo terminou em empate
-//Desabilita a opção de clicar na mesma posição novamente
-//Criada uma verificação que altera os nomes dos jogadores caso sejam iguais
+    function pontuacao(jogador){
+        if(jogador == 3){
+            //Com JS: var pts = parseInt(document.getElementById('pontuacao_jogador_1').textContent);
+            var pts = parseInt($('#pontuacao_jogador_1').text());
+            pts = pts + 1;
+            $('#pontuacao_jogador_1').html(pts);
+        }
+        else if(jogador == -3){
+            //Com JS: var pts = parseInt(document.getElementById('pontuacao_jogador_2').textContent);
+            var pts = parseInt($('#pontuacao_jogador_2').text());
+            pts = pts + 1;
+            $('#pontuacao_jogador_2').html(pts);
+        }
+    }
+    
+    $('.btn-restart').click(function(){
+        //Reseta os valores da rodada e da matriz_jogo
+        rodada = 1;
+
+        matriz_jogo['a'][1] = 0;
+        matriz_jogo['a'][2] = 0;
+        matriz_jogo['a'][3] = 0;
+        matriz_jogo['b'][1] = 0;
+        matriz_jogo['b'][2] = 0;
+        matriz_jogo['b'][3] = 0;
+        matriz_jogo['c'][1] = 0;
+        matriz_jogo['c'][2] = 0;
+        matriz_jogo['c'][3] = 0;
+        //Limpa as imagens colocadas nos elementos com a classe .jogada
+        $(".jogada").css('background-image', '');
+        //Reativa o clique nos elementos com a classe .jogada e chama a função jogada()
+        $('.jogada').click(function(){
+            jogada(this.id);
+        });
+        //esconde o botão Revanche
+        $('.div-btn-restart').hide();
+    });
+});
