@@ -12,4 +12,3 @@ através da utilização de JavaScript e JQuery</p>
 - Verificação de nomes iguais: Criada lógica que verifica se os nomes digitados nos inputs são iguais. Caso sejam, são colocados os números 1 e 2 ao lado dos respectivos nomes;
 - Sistema de pontuação e botão de revanche: implementada função que contabiliza o número de vitórias de cada jogador e botão de revanche que aparece ao final de cada partida e reseta o jogo.
 
-:warning: Novas implementações além das apresentadas durante o curso serão desenvolvidas.
